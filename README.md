@@ -25,7 +25,7 @@ and managers to oversee operations and notify customers.
 - Java 17
 - Spring Boot 3.3.4
 - Spring Data JPA
-- PostgreSQL (or another relational database)
+- PostgreSQL
 - Maven for dependency management
 - RESTful API architecture
 
