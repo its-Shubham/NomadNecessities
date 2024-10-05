@@ -24,7 +24,7 @@ public class User extends Audit {
   private String password;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "role_id", nullable = false)
+  @JoinColumn(name = "role_id")
   private Role role;
 
   @ManyToOne(fetch = FetchType.LAZY)

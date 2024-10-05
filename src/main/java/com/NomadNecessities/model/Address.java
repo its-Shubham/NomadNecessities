@@ -12,18 +12,18 @@ public class Address implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "street", nullable = false)
+  @Column(name = "street")
   private String street;
 
-  @Column(name = "city", nullable = false)
+  @Column(name = "city")
   private String city;
 
-  @Column(name = "state", nullable = false)
+  @Column(name = "state")
   private String state;
 
-  @Column(name = "postal_code", nullable = false)
+  @Column(name = "postal_code")
   private String postalCode;
 
-  @Column(name = "country", nullable = false)
+  @Column(name = "country")
   private String country;
 }
