@@ -1,7 +1,7 @@
 package com.NomadNecessities.controller;
 
+import com.NomadNecessities.dto.UserRegistrationDTO;
 import com.NomadNecessities.model.Notification;
-import com.NomadNecessities.model.User;
 import com.NomadNecessities.service.NotificationService;
 import com.NomadNecessities.service.UserService;
 import java.util.List;
@@ -22,7 +22,7 @@ public class NotificationController {
 
   @GetMapping("/{userId}")
   public ResponseEntity<List<Notification>> getNotifications(@PathVariable Long userId) {
-    User user = userService.findById(userId); // Create this method in UserService
+    UserRegistrationDTO user = userService.findById(userId); // Create this method in UserService
     List<Notification> notifications = notificationService.getNotificationsByUser(user);
     return ResponseEntity.ok(notifications);
   }

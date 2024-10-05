@@ -3,7 +3,6 @@ package com.NomadNecessities.model;
 import com.NomadNecessities.constant.PaymentMethod;
 import com.NomadNecessities.constant.PaymentStatus;
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.Data;
 
@@ -24,7 +23,7 @@ public class Payment {
   private PaymentStatus status;
 
   @Column(nullable = false)
-  private BigDecimal amount;
+  private Double amount;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)

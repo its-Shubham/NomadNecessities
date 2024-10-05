@@ -1,7 +1,6 @@
 package com.NomadNecessities.model;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import lombok.Data;
 
 @Entity
@@ -16,7 +15,7 @@ public class CatalogItem {
   private String name;
 
   @Column(nullable = false)
-  private BigDecimal price;
+  private Double price;
 
   @Column(nullable = false)
   private String description;

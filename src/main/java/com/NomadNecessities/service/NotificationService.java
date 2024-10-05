@@ -1,5 +1,7 @@
 package com.NomadNecessities.service;
 
+import com.NomadNecessities.constant.NotificationStatus;
+import com.NomadNecessities.dto.UserRegistrationDTO;
 import com.NomadNecessities.model.Notification;
 import com.NomadNecessities.model.User;
 import com.NomadNecessities.repository.NotificationRepository;
@@ -25,13 +27,13 @@ public class NotificationService {
           "A delivery person is going to "
               + city
               + " to fetch goods. You can also place your order.");
-      notification.setStatus("PENDING");
+      notification.setStatus(NotificationStatus.PENDING);
       notification.setCreatedAt(LocalDateTime.now());
       notificationRepository.save(notification);
     }
   }
 
-  public List<Notification> getNotificationsByUser(User user) {
+  public List<Notification> getNotificationsByUser(UserRegistrationDTO user) {
     return notificationRepository.findByUser(user);
   }
 }

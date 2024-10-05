@@ -1,6 +1,6 @@
 package com.NomadNecessities.controller;
 
-import com.NomadNecessities.model.User;
+import com.NomadNecessities.dto.UserRegistrationDTO;
 import com.NomadNecessities.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +13,16 @@ public class UserController {
   @Autowired private UserService userService;
 
   @PostMapping("/admin/create")
-  public ResponseEntity<?> createUser(@RequestBody User userRequest) {
-    User user = userService.createUser(userRequest);
+  public ResponseEntity<?> createUser(@RequestBody UserRegistrationDTO userRequest) {
+    UserRegistrationDTO user = userService.createUser(userRequest);
     return ResponseEntity.ok(user);
   }
 
   // Get user details
   @GetMapping("/{userId}")
-  public ResponseEntity<User> getUserDetails(@PathVariable Long userId) {
-    User user = userService.findById(userId);
+  public ResponseEntity<UserRegistrationDTO> getUserDetails(@PathVariable Long userId) {
+    UserRegistrationDTO user = userService.findUserById(userId);
+
     return ResponseEntity.ok(user);
   }
 }

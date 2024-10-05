@@ -14,7 +14,7 @@ public class PaymentService {
 
   public Payment processPayment(Payment payment) {
     payment.setPaymentDate(LocalDateTime.now());
-    payment.setPaymentStatus("COMPLETED");
+    //    payment.setPaymentStatus("COMPLETED");
     return paymentRepository.save(payment);
   }
 

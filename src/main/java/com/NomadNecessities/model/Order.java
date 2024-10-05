@@ -2,7 +2,6 @@ package com.NomadNecessities.model;
 
 import com.NomadNecessities.constant.OrderStatus;
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +24,10 @@ public class Order {
   private OrderStatus status;
 
   @Column(name = "total_amount", nullable = false)
-  private BigDecimal totalAmount;
+  private Double totalAmount;
 
   @Column(name = "delivery_charge", nullable = false)
-  private BigDecimal deliveryCharge;
+  private Double deliveryCharge;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "delivery_address_id", nullable = false)

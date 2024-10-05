@@ -1,13 +1,12 @@
 package com.NomadNecessities.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "users")
-public class User {
+public class User extends Audit {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -31,21 +30,4 @@ public class User {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "address_id")
   private Address address;
-
-  @Column(name = "created_at", updatable = false)
-  private LocalDateTime createdAt;
-
-  @Column(name = "updated_at")
-  private LocalDateTime updatedAt;
-
-  @PrePersist
-  protected void onCreate() {
-    createdAt = LocalDateTime.now();
-    updatedAt = LocalDateTime.now();
-  }
-
-  @PreUpdate
-  protected void onUpdate() {
-    updatedAt = LocalDateTime.now();
-  }
 }
