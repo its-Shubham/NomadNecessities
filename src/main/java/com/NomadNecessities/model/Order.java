@@ -1,17 +1,17 @@
 package com.NomadNecessities.model;
 
+import com.NomadNecessities.constant.OrderStatus;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.Data;
 
-@Getter
-@Setter
 @Entity
+@Data
 @Table(name = "orders")
 public class Order {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -21,7 +21,8 @@ public class Order {
   private User customer;
 
   @Column(nullable = false)
-  private String status; // Default: 'PENDING'
+  @Enumerated(EnumType.STRING)
+  private OrderStatus status;
 
   @Column(name = "total_amount", nullable = false)
   private BigDecimal totalAmount;
@@ -29,12 +30,35 @@ public class Order {
   @Column(name = "delivery_charge", nullable = false)
   private BigDecimal deliveryCharge;
 
-  @Column(nullable = false)
-  private String city;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "delivery_address_id", nullable = false)
+  private Address deliveryAddress;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "source_city_id", nullable = false)
+  private City sourceCity;
+
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<OrderItem> orderItems = new ArrayList<>();
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "delivery_trip_id")
+  private DeliveryTrip deliveryTrip;
 
   @Column(name = "created_at", updatable = false)
   private LocalDateTime createdAt;
 
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
+
+  @PrePersist
+  protected void onCreate() {
+    createdAt = LocalDateTime.now();
+    updatedAt = LocalDateTime.now();
+  }
+
+  @PreUpdate
+  protected void onUpdate() {
+    updatedAt = LocalDateTime.now();
+  }
 }

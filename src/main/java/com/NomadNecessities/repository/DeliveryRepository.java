@@ -1,6 +1,5 @@
 package com.NomadNecessities.repository;
 
-import com.NomadNecessities.model.Delivery;
 import com.NomadNecessities.model.User;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

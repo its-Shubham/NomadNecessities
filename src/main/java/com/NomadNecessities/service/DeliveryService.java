@@ -1,6 +1,5 @@
 package com.NomadNecessities.service;
 
-import com.NomadNecessities.model.Delivery;
 import com.NomadNecessities.model.Order;
 import com.NomadNecessities.model.User;
 import com.NomadNecessities.repository.DeliveryRepository;

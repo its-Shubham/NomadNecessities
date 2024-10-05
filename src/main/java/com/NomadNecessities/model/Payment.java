@@ -1,37 +1,38 @@
 package com.NomadNecessities.model;
 
+import com.NomadNecessities.constant.PaymentMethod;
+import com.NomadNecessities.constant.PaymentStatus;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
 @Entity
+@Data
 @Table(name = "payments")
 public class Payment {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "order_id", nullable = false)
   private Order order;
 
-  @Column(name = "payment_status", nullable = false)
-  private String paymentStatus; // Default: 'PENDING'
+  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  private PaymentStatus status;
 
   @Column(nullable = false)
   private BigDecimal amount;
 
   @Column(nullable = false)
-  private String paymentMethod;
+  @Enumerated(EnumType.STRING)
+  private PaymentMethod paymentMethod;
 
   @Column(name = "transaction_id", unique = true)
   private String transactionId;
 
-  @Column(name = "payment_date", updatable = false)
+  @Column(name = "payment_date")
   private LocalDateTime paymentDate;
 }

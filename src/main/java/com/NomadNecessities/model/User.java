@@ -2,15 +2,12 @@ package com.NomadNecessities.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
 @Entity
+@Data
 @Table(name = "users")
 public class User {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -25,11 +22,15 @@ public class User {
   private String email;
 
   @Column(nullable = false)
-  private String password; // Store as hashed value
+  private String password;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "role_id", nullable = false)
   private Role role;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "address_id")
+  private Address address;
 
   @Column(name = "created_at", updatable = false)
   private LocalDateTime createdAt;

@@ -1,5 +1,7 @@
 package com.NomadNecessities.service;
 
+import static com.NomadNecessities.constant.OrderStatus.PENDING;
+
 import com.NomadNecessities.exception.OrderNotFoundException;
 import com.NomadNecessities.model.Order;
 import com.NomadNecessities.model.Payment;
@@ -23,14 +25,28 @@ public class OrderService {
   @Autowired private NotificationService notificationService;
 
   @Transactional
-  public Order placeOrder(Order order, Payment payment) {
+  public Order placeOrder(Order order) {
+    // Set order initial status
+    order.setStatus(PENDING);
+
+    // Save the order first to ensure it has an ID before associating it with payment
+    Order savedOrder = orderRepository.save(order);
+
+    // Create and save the payment associated with this order
+    Payment payment = new Payment();
+    payment.setOrder(savedOrder);
+    payment.setPaymentMethod("COD");
+    payment.setAmount(savedOrder.getTotalAmount().add(savedOrder.getDeliveryCharge()));
     payment.setPaymentStatus("PENDING");
     payment.setPaymentDate(LocalDateTime.now());
+
     paymentRepository.save(payment);
-    order.setTotalAmount(payment.getAmount());
-    order.setStatus("PENDING");
-    order.setCreatedAt(LocalDateTime.now());
-    return orderRepository.save(order);
+
+    // Update order with the correct total amount (including delivery charges) and save it again
+    savedOrder.setTotalAmount(payment.getAmount());
+    savedOrder.setStatus(PENDING);
+
+    return savedOrder;
   }
 
   public List<Order> getOrdersByCustomer(User customer) {

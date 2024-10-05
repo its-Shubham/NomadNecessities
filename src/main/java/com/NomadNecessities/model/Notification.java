@@ -1,16 +1,14 @@
 package com.NomadNecessities.model;
 
+import com.NomadNecessities.constant.NotificationStatus;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
 @Entity
+@Data
 @Table(name = "notifications")
 public class Notification {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -23,8 +21,14 @@ public class Notification {
   private String message;
 
   @Column(nullable = false)
-  private String status; // Default: 'PENDING'
+  @Enumerated(EnumType.STRING)
+  private NotificationStatus status;
 
   @Column(name = "created_at", updatable = false)
   private LocalDateTime createdAt;
+
+  @PrePersist
+  protected void onCreate() {
+    createdAt = LocalDateTime.now();
+  }
 }

@@ -1,7 +1,6 @@
 package com.NomadNecessities.controller;
 
 import com.NomadNecessities.model.Order;
-import com.NomadNecessities.model.Payment;
 import com.NomadNecessities.model.User;
 import com.NomadNecessities.service.OrderService;
 import com.NomadNecessities.service.PaymentService;
@@ -22,11 +21,8 @@ public class OrderController {
   @Autowired private UserService userService;
 
   @PostMapping
-  public ResponseEntity<Order> placeOrder(@RequestBody Order order, @RequestParam Long paymentId) {
-    // Retrieve the payment using the paymentId
-    Payment payment =
-        paymentService.getPaymentById(paymentId); // Create this method in PaymentService
-    order = orderService.placeOrder(order, payment);
+  public ResponseEntity<Order> placeOrder(@RequestBody Order order) {
+    order = orderService.placeOrder(order);
     return ResponseEntity.ok(order);
   }
 

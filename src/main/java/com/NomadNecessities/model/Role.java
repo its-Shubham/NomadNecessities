@@ -1,19 +1,18 @@
 package com.NomadNecessities.model;
 
+import com.NomadNecessities.constant.RoleName;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
 @Entity
+@Data
 @Table(name = "roles")
 public class Role {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "role_name", unique = true, nullable = false)
-  private String roleName;
+  @Enumerated(EnumType.STRING)
+  private RoleName roleName;
 }
